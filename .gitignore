@@ -1,0 +1,13 @@
+#yarn
+yarn-debug.log*
+yarn-error.log*
+yarn.lock
+
+#package-lock
+package-lock.json
+
+#env
+.env
+
+#node_modules
+node_modules

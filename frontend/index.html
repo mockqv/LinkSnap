@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LinkSnap - Encurtador de URL</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Encurtador de URL</h1>
+    <input type="text" id="urlInput" placeholder="Cole aqui sua URL..." />
+    <button onclick="shortenUrl()">Encurtar</button>
+    <p id="result"></p>
+  </div>
+
+  <script>
+    async function shortenUrl() {
+      const url = document.getElementById("urlInput").value;
+      const response = await fetch("http://localhost:3000/api/shorten", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ originalUrl: url })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        document.getElementById("result").innerHTML =
+          `URL encurtada: <a href="http://localhost:3000/api/${data.shortUrl}" target="_blank">http://localhost:3000/api/${data.shortUrl}</a>`;
+      } else {
+        document.getElementById("result").innerText = "Erro ao encurtar URL.";
+      }
+    }
+  </script>
+</body>
+</html>
